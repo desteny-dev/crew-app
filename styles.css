@@ -1,0 +1,1033 @@
+/* ==========================================================================
+   Design-Tokens (Fable, 04.09.2026). Alle Farben der App laufen über diese
+   Variablen; die Screens enthalten keine Hex-Literale mehr (scripts/tokenize.mjs).
+   Hell ist der Standard, Dunkel liegt auf :root[data-theme="dark"] — das Thema
+   wird von core/theme.js gesetzt (Einstellung System/Hell/Dunkel, System löst
+   prefers-color-scheme auf). Alpha-Tokens (--ink-aNN, --shadow-NN, --green-aNN …)
+   erzeugt das Skript zwischen den AUTO-Marken.
+   ========================================================================== */
+/* tokens:start */
+:root {
+  --canvas: #eae5dc;
+  --paper: #f6f3ee;
+  --paper-soft: #fcfbf8;
+  --surface: #ffffff;
+  --field: #ede8e0;
+  --field-deep: #e7e2d8;
+  --handle: #d9d3ca;
+  --line-solid: #c9c2b6;
+  --line-strong: #b8b0a4;
+  --nav: rgba(252, 251, 248, .96);
+  --ink: #211e1a;
+  --ink-soft: #6f6963;
+  --muted: #8a8377;
+  --muted-light: #a79f95;
+  --on-ink: #ffffff;
+  --on-accent: #ffffff;
+  --green: #1b9e5f;
+  --green-dark: #17694a;
+  --green-tint: #e3f2e9;
+  --orange: #d96c1f;
+  --orange-dark: #b05e1c;
+  --orange-tint: #fbf1e8;
+  --red: #d14b3f;
+  --danger: #c0442c;
+  --red-tint: #fbedea;
+  --blue: #7f9fc9;
+  --blue-dark: #3d5e8c;
+  --blue-tint: #eff3fa;
+  --map-tint: #d9e6e4;
+  /* Auftrag §2.2: Der QR-Code bleibt in BEIDEN Themen hell. Ein umgedrehter Code (helle
+     Module auf dunklem Grund) lesen zwar viele Scanner, aber nicht alle — und ein Code,
+     der bei manchen nicht geht, ist kaputt. Deshalb eigene Tokens, die im dunklen Satz
+     bewusst NICHT überschrieben werden. */
+  --qr-grund: #f6f3ee;
+  --qr-tinte: #211e1a;
+  --qr-marke: #17694a;
+  --scrim: rgba(246, 243, 238, .26);
+  --scrim-filter: blur(6px);
+  --ring-rgb: 24,21,18;
+  --glass: rgba(255,255,255,.72);
+  --line: var(--ink-a09);
+  --radius-card: 18px;
+  --radius-screen: 44px;
+  /* AUTO-ALPHA-LIGHT */
+  --green-a00: rgba(27,158,95,0);
+  --green-a05: rgba(27,158,95,.05);
+  --green-a10: rgba(27,158,95,.1);
+  --green-a12: rgba(27,158,95,.12);
+  --green-a14: rgba(27,158,95,.14);
+  --green-a16: rgba(27,158,95,.16);
+  --green-a20: rgba(27,158,95,.2);
+  --green-a22: rgba(27,158,95,.22);
+  --green-a26: rgba(27,158,95,.26);
+  --green-a28: rgba(27,158,95,.28);
+  --green-a30: rgba(27,158,95,.3);
+  --green-a35: rgba(27,158,95,.35);
+  --green-a40: rgba(27,158,95,.4);
+  --green-a42: rgba(27,158,95,.42);
+  --green-a45: rgba(27,158,95,.45);
+  --green-a50: rgba(27,158,95,.5);
+  --green-a55: rgba(27,158,95,.55);
+  --green-a60: rgba(27,158,95,.6);
+  --green-a62: rgba(27,158,95,.62);
+  --green-a65: rgba(27,158,95,.65);
+  --green-a90: rgba(27,158,95,.9);
+  --green-a92: rgba(27,158,95,.92);
+  --ink-a05: rgba(33,30,26,.05);
+  --ink-a06: rgba(33,30,26,.06);
+  --ink-a07: rgba(33,30,26,.07);
+  --ink-a08: rgba(33,30,26,.08);
+  --ink-a09: rgba(33,30,26,.09);
+  --ink-a10: rgba(33,30,26,.1);
+  --ink-a12: rgba(33,30,26,.12);
+  --ink-a14: rgba(33,30,26,.14);
+  --ink-a16: rgba(33,30,26,.16);
+  --ink-a18: rgba(33,30,26,.18);
+  --ink-a20: rgba(33,30,26,.2);
+  --ink-a22: rgba(33,30,26,.22);
+  --ink-a28: rgba(33,30,26,.28);
+  --ink-a35: rgba(33,30,26,.35);
+  --ink-a3_5: rgba(33,30,26,.035);
+  --ink-a44: rgba(33,30,26,.44);
+  --ink-a50: rgba(33,30,26,.5);
+  --ink-a72: rgba(33,30,26,.72);
+  --ink-a92: rgba(33,30,26,.92);
+  --orange-a22: rgba(217,108,31,.22);
+  --orange-a28: rgba(217,108,31,.28);
+  --orange-a32: rgba(217,108,31,.32);
+  --orange-a35: rgba(217,108,31,.35);
+  --orange-a40: rgba(217,108,31,.4);
+  --orange-dark-a08: rgba(176,94,28,.08);
+  --orange-dark-a10: rgba(176,94,28,.1);
+  --orange-dark-a28: rgba(176,94,28,.28);
+  --orange-dark-a30: rgba(176,94,28,.3);
+  --orange-dark-a34: rgba(176,94,28,.34);
+  --paper-a00: rgba(246,243,238,0);
+  --paper-a72: rgba(246,243,238,.72);
+  --paper-a88: rgba(246,243,238,.88);
+  --paper-a90: rgba(246,243,238,.9);
+  --paper-a92: rgba(246,243,238,.92);
+  --paper-a94: rgba(246,243,238,.94);
+  --red-a25: rgba(209,75,63,.25);
+  --red-a28: rgba(209,75,63,.28);
+  --red-a30: rgba(209,75,63,.3);
+  --red-a45: rgba(209,75,63,.45);
+  --shadow-04: rgba(33,30,26,.04);
+  --shadow-05: rgba(33,30,26,.05);
+  --shadow-06: rgba(33,30,26,.06);
+  --shadow-07: rgba(33,30,26,.07);
+  --shadow-08: rgba(33,30,26,.08);
+  --shadow-10: rgba(33,30,26,.1);
+  --shadow-12: rgba(33,30,26,.12);
+  --shadow-14: rgba(33,30,26,.14);
+  --shadow-15: rgba(33,30,26,.15);
+  --shadow-16: rgba(33,30,26,.16);
+  --shadow-18: rgba(33,30,26,.18);
+  --shadow-20: rgba(33,30,26,.2);
+  --shadow-22: rgba(33,30,26,.22);
+  --shadow-25: rgba(33,30,26,.25);
+  --shadow-30: rgba(33,30,26,.3);
+  /* /AUTO-ALPHA-LIGHT */
+  color-scheme: light;
+  font-family: "Instrument Sans", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--canvas);
+}
+:root[data-theme="dark"] {
+  --canvas: #121110;
+  --paper: #1a1816;
+  --paper-soft: #1f1d1a;
+  --surface: #262320;
+  --field: #2f2b27;
+  --field-deep: #383430;
+  --handle: #45403a;
+  --line-solid: #4b4640;
+  --line-strong: #5a544d;
+  --nav: rgba(26, 24, 22, .96);
+  --ink: #f2ede5;
+  --ink-soft: #cfc8be;
+  --muted: #a0988c;
+  --muted-light: #7a7268;
+  --on-ink: #17150f;
+  --on-accent: #ffffff;
+  --green: #2db56f;
+  --green-dark: #8fdcb2;
+  --green-tint: #1c2e25;
+  --orange: #ee8a3a;
+  --orange-dark: #f3ad6e;
+  --orange-tint: #33251a;
+  --red: #ef6f63;
+  --danger: #f3806f;
+  --red-tint: #3a1f1c;
+  --blue: #8fb0dc;
+  --blue-dark: #a9c4ea;
+  --blue-tint: #1f2734;
+  --map-tint: #22302f;
+  --scrim: rgba(8, 7, 6, .44);
+  --scrim-filter: blur(6px);
+  --ring-rgb: 242,237,229;
+  --glass: rgba(38,35,32,.72);
+  /* AUTO-ALPHA-DARK */
+  --green-a00: rgba(45,181,111,0);
+  --green-a05: rgba(45,181,111,.05);
+  --green-a10: rgba(45,181,111,.1);
+  --green-a12: rgba(45,181,111,.12);
+  --green-a14: rgba(45,181,111,.14);
+  --green-a16: rgba(45,181,111,.16);
+  --green-a20: rgba(45,181,111,.2);
+  --green-a22: rgba(45,181,111,.22);
+  --green-a26: rgba(45,181,111,.26);
+  --green-a28: rgba(45,181,111,.28);
+  --green-a30: rgba(45,181,111,.3);
+  --green-a35: rgba(45,181,111,.35);
+  --green-a40: rgba(45,181,111,.4);
+  --green-a42: rgba(45,181,111,.42);
+  --green-a45: rgba(45,181,111,.45);
+  --green-a50: rgba(45,181,111,.5);
+  --green-a55: rgba(45,181,111,.55);
+  --green-a60: rgba(45,181,111,.6);
+  --green-a62: rgba(45,181,111,.62);
+  --green-a65: rgba(45,181,111,.65);
+  --green-a90: rgba(45,181,111,.9);
+  --green-a92: rgba(45,181,111,.92);
+  --ink-a05: rgba(242,237,229,.065);
+  --ink-a06: rgba(242,237,229,.078);
+  --ink-a07: rgba(242,237,229,.091);
+  --ink-a08: rgba(242,237,229,.104);
+  --ink-a09: rgba(242,237,229,.117);
+  --ink-a10: rgba(242,237,229,.13);
+  --ink-a12: rgba(242,237,229,.156);
+  --ink-a14: rgba(242,237,229,.182);
+  --ink-a16: rgba(242,237,229,.208);
+  --ink-a18: rgba(242,237,229,.234);
+  --ink-a20: rgba(242,237,229,.26);
+  --ink-a22: rgba(242,237,229,.286);
+  --ink-a28: rgba(242,237,229,.364);
+  --ink-a35: rgba(242,237,229,.455);
+  --ink-a3_5: rgba(242,237,229,.046);
+  --ink-a44: rgba(242,237,229,.572);
+  --ink-a50: rgba(242,237,229,.65);
+  --ink-a72: rgba(242,237,229,.936);
+  --ink-a92: rgba(242,237,229,1);
+  --orange-a22: rgba(238,138,58,.22);
+  --orange-a28: rgba(238,138,58,.28);
+  --orange-a32: rgba(238,138,58,.32);
+  --orange-a35: rgba(238,138,58,.35);
+  --orange-a40: rgba(238,138,58,.4);
+  --orange-dark-a08: rgba(243,173,110,.08);
+  --orange-dark-a10: rgba(243,173,110,.1);
+  --orange-dark-a28: rgba(243,173,110,.28);
+  --orange-dark-a30: rgba(243,173,110,.3);
+  --orange-dark-a34: rgba(243,173,110,.34);
+  --paper-a00: rgba(26,24,22,0);
+  --paper-a72: rgba(26,24,22,.72);
+  --paper-a88: rgba(26,24,22,.88);
+  --paper-a90: rgba(26,24,22,.9);
+  --paper-a92: rgba(26,24,22,.92);
+  --paper-a94: rgba(26,24,22,.94);
+  --red-a25: rgba(239,111,99,.25);
+  --red-a28: rgba(239,111,99,.28);
+  --red-a30: rgba(239,111,99,.3);
+  --red-a45: rgba(239,111,99,.45);
+  --shadow-04: rgba(0,0,0,.08);
+  --shadow-05: rgba(0,0,0,.1);
+  --shadow-06: rgba(0,0,0,.12);
+  --shadow-07: rgba(0,0,0,.14);
+  --shadow-08: rgba(0,0,0,.16);
+  --shadow-10: rgba(0,0,0,.2);
+  --shadow-12: rgba(0,0,0,.24);
+  --shadow-14: rgba(0,0,0,.28);
+  --shadow-15: rgba(0,0,0,.3);
+  --shadow-16: rgba(0,0,0,.32);
+  --shadow-18: rgba(0,0,0,.36);
+  --shadow-20: rgba(0,0,0,.4);
+  --shadow-22: rgba(0,0,0,.44);
+  --shadow-25: rgba(0,0,0,.5);
+  --shadow-30: rgba(0,0,0,.6);
+  /* /AUTO-ALPHA-DARK */
+  color-scheme: dark;
+}
+/* tokens:end */
+
+* { box-sizing: border-box; }
+html, body, #app { min-height: 100%; margin: 0; }
+body { min-height: 100dvh; }
+
+/* Auftrag §4.6 — die App soll sich nicht wie eine Website im Browser anfuehlen.
+   overscroll-behavior: none nimmt dem Dokument das Gummiband und das Ziehen zum
+   Neuladen. overflow: hidden verhindert, dass die SEITE selbst scrollt; gescrollt
+   wird ausschliesslich in .screen-scroll, und die haelt ihr Scrollen bei sich
+   (overscroll-behavior: contain, weiter unten).
+   Das Vergroessern mit zwei Fingern bleibt ausdruecklich erlaubt — wer schlecht
+   sieht, braucht es. Das unruhige Gefuehl kam vom Ziehen ueber den Rand. */
+html, body { overscroll-behavior: none; }
+@media (pointer: coarse), (max-width: 900px) {
+  html, body {
+    /* svh statt dvh: die KLEINE Ansichtshoehe aendert sich nicht, wenn die
+       Adressleiste des Browsers ein- und ausfaehrt. Mit dvh sprang bei jeder
+       Scrollbewegung die gesamte Hoehe der App. */
+    height: 100svh;
+    overflow: hidden;
+    position: relative;
+  }
+  #app { min-height: 100svh; height: 100svh; }
+}
+button { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+
+.device {
+  width: min(390px, 100dvw);
+  height: min(844px, 100dvh);
+  min-height: 640px;
+  margin: max(0px, calc((100dvh - 844px) / 2)) auto;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink-a14);
+  border-radius: var(--radius-screen);
+  box-shadow: 0 16px 40px var(--shadow-12);
+}
+
+.status-bar {
+  height: 46px;
+  padding: 12px 28px 0;
+  flex: 0 0 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.status-icons { display: flex; align-items: center; gap: 6px; }
+.status-icons svg { display: block; }
+
+.screen-content {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+.screen-content::-webkit-scrollbar { display: none; }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 20px 0;
+}
+.brand {
+  padding-left: 4px;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: -.04em;
+}
+.brand em { color: var(--green); font-style: normal; }
+
+.icon-switch {
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--field);
+}
+.icon-switch button,
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  color: var(--muted-light);
+  background: transparent;
+  cursor: pointer;
+}
+.icon-switch button.active {
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: 0 1px 3px var(--shadow-08);
+}
+.icon-button { width: 36px; height: 36px; background: var(--glass); }
+.icon-button svg, .icon-switch svg { width: 17px; height: 17px; }
+
+.crew-strip {
+  display: flex;
+  gap: 10px;
+  padding: 14px 20px 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.crew-strip::-webkit-scrollbar { display: none; }
+.crew-card {
+  width: 155px;
+  min-width: 155px;
+  height: 112px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 14px 15px 13px;
+  overflow: visible;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: 0 1px 2px var(--shadow-04);
+  text-align: left;
+  cursor: pointer;
+}
+.crew-card.active-meet::before,
+.person-avatar.active-meet::after,
+.person-row.active-meet::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  content: "";
+  pointer-events: none;
+  border-radius: inherit;
+  background-image:
+    linear-gradient(180deg, var(--green-a90), var(--green-a00)),
+    linear-gradient(0deg, var(--green-a90), var(--green-a00)),
+    linear-gradient(90deg, var(--green-a90), var(--green-a00)),
+    linear-gradient(270deg, var(--green-a90), var(--green-a00));
+  background-position: top, bottom, left, right;
+  background-repeat: no-repeat;
+  background-size: 100% 10px, 100% 10px, 10px 100%, 10px 100%;
+  animation: edge-fade 3.2s ease-in-out infinite;
+}
+.crew-card > *, .person-row > * { position: relative; z-index: 1; }
+.crew-card .avatar-stack { padding-left: 6px; display: flex; align-items: center; }
+.mini-avatar {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  margin-left: -7px;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  color: var(--surface);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+.mini-avatar.more { color: var(--muted); background: var(--field); font-size: 10px; }
+.crew-card-title { overflow: hidden; font-size: 14px; font-weight: 650; letter-spacing: -.01em; text-overflow: ellipsis; var(--surface)-space: nowrap; }
+.crew-card-meta { overflow: hidden; color: var(--ink-soft); font-size: 12px; font-weight: 550; text-overflow: ellipsis; var(--surface)-space: nowrap; }
+.crew-card.active-meet .crew-card-meta { color: var(--green-dark); }
+.notice-badge {
+  position: absolute;
+  z-index: 3;
+  top: -8px;
+  right: -6px;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 6px;
+  border-radius: 11px;
+  color: var(--on-accent);
+  background: var(--orange);
+  box-shadow: 0 2px 5px var(--orange-a35);
+  font-size: 11.5px;
+  font-weight: 650;
+  line-height: 21px;
+  text-align: center;
+}
+.new-crew-card {
+  width: 118px;
+  min-width: 118px;
+  height: 112px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 14px;
+  border: 1.5px dashed var(--ink-a22);
+  border-radius: 20px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 650;
+  var(--surface)-space: nowrap;
+}
+.plus-orb { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--field); font-size: 16px; font-weight: 600; }
+
+.people-list { padding: 10px 24px 0; }
+.person-row {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+  overflow: hidden;
+  border: 0;
+  color: var(--ink);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.person-avatar {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  color: var(--surface);
+  font-size: 15px;
+  font-weight: 600;
+}
+.person-avatar.active-meet::after { z-index: 1; background-size: 108% 108%; animation: avatar-fade 3.2s ease-in-out infinite; }
+.free-dot { position: absolute; right: -1px; bottom: -1px; z-index: 3; width: 13px; height: 13px; border: 2.5px solid var(--paper); border-radius: 50%; background: var(--green); }
+.person-copy { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 1px; }
+.person-name { overflow: hidden; display: flex; align-items: center; gap: 4px; font-size: 15px; font-weight: 600; letter-spacing: -.01em; text-overflow: ellipsis; var(--surface)-space: nowrap; }
+.person-name .friend-star { color: #b88b17; font-size: 13px; }
+.person-name .special-marker { display: grid; place-items: center; width: 13px; height: 13px; border: 1px solid #786a84; border-radius: 4px; color: #786a84; font-size: 8px; }
+.person-status { overflow: hidden; color: var(--muted); font-size: 12.5px; font-weight: 500; text-overflow: ellipsis; var(--surface)-space: nowrap; }
+
+.free-zone { min-height: 112px; margin-top: auto; display: flex; align-items: center; justify-content: center; }
+.free-button {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1.5px solid var(--green-a42);
+  border-radius: 50%;
+  color: var(--green-dark);
+  background: var(--glass);
+  box-shadow: 0 1px 2px var(--shadow-04);
+  cursor: pointer;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 13px;
+  font-weight: 650;
+  user-select: none;
+  touch-action: none;
+}
+.free-button.is-free { border-color: var(--green); color: var(--on-accent); background: var(--green); }
+
+.tabbar {
+  min-height: 78px;
+  padding: 10px 12px 24px;
+  display: flex;
+  align-items: stretch;
+  border-top: 1px solid var(--ink-a08);
+  background: var(--nav);
+}
+.tabbar button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 0;
+  border: 0;
+  color: var(--muted-light);
+  background: transparent;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+}
+.tabbar button.active { color: var(--ink); font-weight: 650; }
+.tabbar svg { width: 24px; height: 24px; }
+
+.sheet-scrim { position: absolute; z-index: 10; inset: 0; background: var(--scrim); -webkit-backdrop-filter: var(--scrim-filter); backdrop-filter: var(--scrim-filter); }
+.hold-overlay { position: absolute; z-index: 11; inset: 0; pointer-events: none; }
+.hold-ring { position: absolute; width: 228px; height: 228px; border-radius: 50%; background: conic-gradient(from 180deg, rgba(var(--ring-rgb),0) 0deg, rgba(var(--ring-rgb),.92) 360deg); -webkit-mask: radial-gradient(circle closest-side, transparent 92px, #000 93px); mask: radial-gradient(circle closest-side, transparent 92px, #000 93px); }
+.hold-time { position: absolute; width: 150px; transform: translate(-50%, -50%); color: var(--on-accent); text-align: center; font-family: "Bricolage Grotesque", sans-serif; font-size: 17px; font-weight: 650; letter-spacing: -.02em; }
+.hold-time small { display: block; margin-top: 3px; color: rgba(255,255,255,.7); font-family: "Instrument Sans", sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0; }
+.hold-free-button { position: absolute; z-index: 3; pointer-events: none; transform: translate(-50%, -50%); }
+
+.meet-screen, .profile-screen { padding: 8px 20px 0; }
+.screen-title { padding: 2px 4px 12px; font-family: "Bricolage Grotesque", sans-serif; font-size: 22px; font-weight: 650; letter-spacing: -.04em; }
+.screen-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.meet-controls { display: flex; gap: 6px; }
+.meet-list { display: flex; flex-direction: column; gap: 10px; padding-bottom: 16px; }
+.meet-card { position: relative; display: grid; grid-template-columns: 46px 1fr auto; gap: 11px; align-items: center; padding: 13px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); box-shadow: 0 1px 2px var(--shadow-04); }
+.meet-icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: #e9e1d5; font-size: 20px; }
+.meet-copy { min-width: 0; }
+.meet-copy strong, .meet-copy span { display: block; overflow: hidden; text-overflow: ellipsis; var(--surface)-space: nowrap; }
+.meet-copy strong { font-size: 15px; }
+.meet-copy span { margin-top: 3px; color: var(--muted); font-size: 12px; }
+.round-control { display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 1px solid var(--ink-a16); border-radius: 50%; color: var(--green-dark); background: var(--surface); }
+
+.profile-card { padding: 18px; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); }
+.profile-row { display: flex; align-items: center; gap: 12px; }
+.profile-avatar { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; color: var(--on-accent); background: #c98a5b; font-size: 19px; font-weight: 650; }
+.profile-card h2 { margin: 0; font-family: "Bricolage Grotesque", sans-serif; font-size: 20px; letter-spacing: -.03em; }
+.profile-card p { margin: 3px 0 0; color: var(--muted); font-size: 13px; }
+.profile-section { margin-top: 18px; font-size: 13px; font-weight: 650; }
+.profile-link { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 15px 2px; border: 0; border-bottom: 1px solid var(--line); color: var(--ink); background: transparent; text-align: left; }
+
+.modal { position: absolute; z-index: 14; inset: 0; display: flex; align-items: flex-end; }
+.modal-card { width: 100%; padding: 14px 20px 28px; border-radius: 26px 26px 0 0; background: var(--surface); box-shadow: 0 -10px 30px var(--shadow-15); }
+.modal-handle { width: 38px; height: 4px; margin: 0 auto 15px; border-radius: 999px; background: var(--handle); }
+.modal h2 { margin: 0 0 13px; font-family: "Bricolage Grotesque", sans-serif; font-size: 21px; letter-spacing: -.03em; }
+.modal label { display: block; margin: 14px 0 6px; color: var(--muted); font-size: 12px; font-weight: 650; }
+.modal input { width: 100%; padding: 13px 14px; border: 1px solid var(--line); border-radius: 14px; outline: none; color: var(--ink); background: var(--paper); }
+.primary-action { width: 100%; margin-top: 16px; padding: 14px; border: 0; border-radius: 15px; color: var(--surface); background: var(--green); font-weight: 650; }
+.secondary-action { width: 100%; margin-top: 9px; padding: 13px; border: 0; border-radius: 15px; color: var(--ink); background: var(--field); font-weight: 650; }
+
+@keyframes edge-fade {
+  0%, 100% { background-size: 100% 10px, 100% 10px, 10px 100%, 10px 100%; }
+  50% { background-size: 100% 18px, 100% 18px, 18px 100%, 18px 100%; }
+}
+@keyframes avatar-fade {
+  0%, 100% { background-size: 108% 108%; }
+  50% { background-size: 76% 76%; }
+}
+
+@media (max-width: 390px), (max-height: 844px) {
+  .device { width: 100dvw; height: 100dvh; margin: 0; border: 0; border-radius: 0; box-shadow: none; }
+}
+
+/* Die Runtime rendert exakt einen extrahierten inneren Handy-Screen der Referenz. */
+#app {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+}
+.runtime-shell {
+  width: min(390px, 100dvw);
+  height: min(844px, 100dvh);
+  min-height: 640px;
+  position: relative;
+}
+.runtime-phone {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 640px;
+}
+.runtime-scrim {
+  position: absolute;
+  z-index: 10;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--scrim);
+  -webkit-backdrop-filter: var(--scrim-filter);
+  backdrop-filter: var(--scrim-filter);
+}
+.runtime-hold-overlay {
+  position: absolute;
+  z-index: 11;
+  inset: 0;
+  pointer-events: none;
+}
+.runtime-hold-ring {
+  position: absolute;
+  width: 228px;
+  height: 228px;
+  border-radius: 50%;
+  background: conic-gradient(from 180deg, rgba(var(--ring-rgb),0) 0deg, rgba(var(--ring-rgb),.92) 360deg);
+  -webkit-mask: radial-gradient(circle closest-side, transparent 92px, #000 93px);
+  mask: radial-gradient(circle closest-side, transparent 92px, #000 93px);
+}
+.runtime-hold-dot {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  color: var(--on-accent);
+  background: var(--green);
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 13px;
+  font-weight: 650;
+}
+.runtime-hold-time {
+  position: absolute;
+  width: 150px;
+  transform: translate(-50%, -50%);
+  color: var(--on-accent);
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: -.02em;
+  text-align: center;
+}
+.runtime-hold-time small {
+  display: block;
+  margin-top: 3px;
+  color: rgba(255,255,255,.7);
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+@keyframes kantenFade {
+  0%, 100% { background-size: 100% 10px, 100% 10px, 10px 100%, 10px 100%; }
+  50% { background-size: 100% 18px, 100% 18px, 18px 100%, 18px 100%; }
+}
+@keyframes avPuls {
+  0%, 100% { background-size: 108% 108%; }
+  50% { background-size: 76% 76%; }
+}
+/* v14-Kanten-Fade (reference/current): geblurrte Border-Ringe, Puls nur über die Fade-Tiefe. */
+@keyframes fadeKante {
+  0%, 100% { border-width: 13px; }
+  50% { border-width: 18px; }
+}
+@keyframes fadeKanteS {
+  0%, 100% { border-width: 9px; }
+  50% { border-width: 12px; }
+}
+@keyframes fadeKanteXS {
+  0%, 100% { border-width: 7px; }
+  50% { border-width: 9px; }
+}
+
+/* v4: Reale Geraete fuellen den Bildschirm. Der Handyrahmen ist ausschliesslich die
+   Desktop-Vorschau fuer breite Fenster — kein Groessensimulator in der App.
+   Vorher griff die Regel nur bis 390px Breite ODER 844px Hoehe, weshalb ein echtes
+   430x932-Handy und jedes Tablet eine 390x844-Attrappe mit Rahmen und Schatten zeigten. */
+@media (pointer: coarse), (max-width: 900px) {
+  .runtime-shell { width: 100dvw; height: 100svh; min-height: 0; }
+  .runtime-phone { min-height: 0; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+  /* Ohne Rahmen gibt es keine Kontur, an der die gleitende Ebene enden müsste. */
+  #app { --gleit-rahmen: 0px; --gleit-radius: 0px; }
+}
+
+/* v3.1 — Toast, Scrollflächen, Übergänge */
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Eine Scrollfläche je Screen: Scrollbars unsichtbar, aber ohne Breitenverlust. */
+.screen-scroll { scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior: contain; }
+.screen-scroll::-webkit-scrollbar { width: 0; height: 0; }
+/* v4 P0-1: Die Seiten in der Tab-Bahn bewegen sich, die Chrome nicht.
+   touch-action: pan-y laesst vertikales Scrollen zu und gibt die horizontale Geste an
+   die App — ohne das feuert der Compositor pointercancel und der Swipe stirbt. */
+.tab-page { will-change: transform, opacity; touch-action: pan-y; }
+/* Ein Seitenzug darf keinen Text markieren (sichtbare blaue Auswahl beim Swipe). */
+.runtime-phone { -webkit-user-select: none; user-select: none; }
+.runtime-phone input, .runtime-phone textarea, .runtime-phone [contenteditable] {
+  -webkit-user-select: text; user-select: text;
+}
+.tab-track { touch-action: pan-y; }
+/* Eigene vertikale Zieh-Flaechen (Saved-Sheet) brauchen die Geste vollstaendig. */
+[data-layerbox] { touch-action: none; }
+
+/* v4 COMPONENT_RULES 1: Detailseiten, Chat und Sheets bekommen einen kurzen
+   Transform-/Opacity-Uebergang. Bewusst als benannte ANIMATION statt als Transition:
+   die Screens werden bei jedem Render neu eingefuegt, und ein frisch eingefuegter
+   Knoten hat keinen Startwert, von dem aus eine Transition laufen koennte — genau
+   daran scheiterten die Uebergaenge bisher (Abnahme A.4: 0 Animationen ueber 130 Frames). */
+@keyframes pageEnterForward {
+  from { transform: translateX(18px); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+@keyframes pageEnterBack {
+  from { transform: translateX(-18px); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+/* Runde 3: Die Überlagerung zwischen Kopf und Liste (Aktivitätenbox im Raum) gehört zur
+   Seite und bewegt sich mit ihr — vorher lief alles herein außer ihr. */
+.runtime-shell[data-move="push"] .screen-header,
+.runtime-shell[data-move="push"] .screen-scroll,
+.runtime-shell[data-move="push"] .screen-overlay-top,
+.runtime-shell[data-move="push"] .screen-bottom { animation: pageEnterForward .22s cubic-bezier(.22,.61,.36,1) both; }
+/* Ein seitlicher Wechsel auf derselben Ebene (z. B. "Chat oeffnen" per replace)
+   bewegt sich wie ein Vorwaertsschritt; ein Reset blendet nur ruhig auf. */
+.runtime-shell[data-move="replace"] .screen-header,
+.runtime-shell[data-move="replace"] .screen-scroll,
+.runtime-shell[data-move="replace"] .screen-overlay-top,
+.runtime-shell[data-move="replace"] .screen-bottom { animation: pageEnterForward .22s cubic-bezier(.22,.61,.36,1) both; }
+@keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+.runtime-shell[data-move="reset"] .screen-header,
+.runtime-shell[data-move="reset"] .screen-scroll,
+.runtime-shell[data-move="reset"] .screen-overlay-top,
+.runtime-shell[data-move="reset"] .screen-bottom { animation: pageFadeIn .2s ease-out both; }
+
+.runtime-shell[data-move="back"] .screen-header,
+.runtime-shell[data-move="back"] .screen-scroll,
+.runtime-shell[data-move="back"] .screen-overlay-top,
+.runtime-shell[data-move="back"] .screen-bottom { animation: pageEnterBack .22s cubic-bezier(.22,.61,.36,1) both; }
+
+/* Runde 2 (Jonathan): Einstellungen gleiten von rechts ÜBER die stehende Seite. Seite und
+   Standbild liegen in derselben Zelle des #app-Rasters; bewegt wird nur die obere Ebene.
+   Hinein: die neue Seite über dem stehenden Standbild. Hinaus: das Standbild über der neuen.
+   Runde 3 (N1): Es gibt dabei nur EIN Telefon. Die bewegte Ebene wird auf das Innere des
+   stehenden Rahmens beschnitten (unter der Statusleiste, innerhalb der 1-px-Kontur, unten mit
+   derselben Rundung) und zeichnet während der Bewegung keinen eigenen Rahmen — nur ihren
+   Kantenschatten. Am Ende liegen Rahmen und Kontur wieder pixelgleich übereinander. */
+#app { overflow-x: clip; --gleit-rahmen: 1px; --gleit-radius: calc(var(--radius-screen) - 1px); }
+/* Jede Hülle ist ein eigener Stapelkontext. Angesehen (Runde 3): Beim Zurückgleiten in den Chat
+   lagen Kopf (z 5) und Aktivitätenbox (z 4) des stehenden Chats ÜBER dem hinausgleitenden
+   Standbild (z 3) — die z-Werte der Seite stapelten sich sonst mit denen der Ebenen. */
+#app > .runtime-shell { grid-area: 1 / 1; isolation: isolate; }
+.gleit-ebene { pointer-events: none; }
+.runtime-shell[data-gleiten="rein"]:not(.gleit-ebene) { z-index: 2; }
+.gleit-ebene[data-gleit-ebene="unten"] { z-index: 1; }
+.gleit-ebene[data-gleit-ebene="oben"] { z-index: 3; }
+@keyframes gleitenRein { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes gleitenRaus { from { transform: none; } to { transform: translateX(100%); } }
+.runtime-shell[data-gleiten="rein"]:not(.gleit-ebene),
+.gleit-ebene[data-gleit-ebene="oben"] {
+  clip-path: inset(var(--gleit-oben, 0px) var(--gleit-rahmen) var(--gleit-rahmen) var(--gleit-rahmen) round 0 0 var(--gleit-radius) var(--gleit-radius));
+}
+.runtime-shell[data-gleiten="rein"]:not(.gleit-ebene) .runtime-phone,
+.gleit-ebene[data-gleit-ebene="oben"] .runtime-phone {
+  border-color: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: -14px 0 32px var(--shadow-16) !important;
+}
+.runtime-shell[data-gleiten="rein"]:not(.gleit-ebene) .runtime-phone { animation: gleitenRein .36s cubic-bezier(.2,.75,.2,1) both; }
+.gleit-ebene[data-gleit-ebene="oben"] .runtime-phone { animation: gleitenRaus .32s cubic-bezier(.3,.55,.35,1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .runtime-shell[data-gleiten="rein"] .runtime-phone, .gleit-ebene .runtime-phone { animation: none; }
+}
+
+/* Sheets fahren von unten herein, der Scrim blendet auf. */
+/* v7 A12 (spec/03 §1): Die Bewegung geht über die GANZE eigene Höhe — von der
+   Rahmenunterkante an die Zielhöhe. Vorher waren es feste 18 px, was eher wie ein
+   Aufblenden als wie ein Hereinfahren aussah. Beim Schließen läuft dieselbe Strecke
+   rückwärts; den dafür nötigen Aufschub im DOM-Abgleich setzt core/html.js. */
+@keyframes sheetRise { from { transform: translateY(100%); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes sheetFall { from { transform: none; opacity: 1; } to { transform: translateY(100%); opacity: 0; } }
+@keyframes scrimOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes scrimFade { from { opacity: 0; } to { opacity: 1; } }
+/* Runde 3 (D2, Jonathan): „Der Hintergrund wird langsam blurry, ungefähr so schnell, wie das
+   Slide-up ganz offen ist — beim Schließen genauso." Vorher blendete nur der Scrim mit Klasse
+   seine Deckkraft (0,2 s) — die meisten Sheets tragen ihren Blur aber inline und erschienen
+   ohne jeden Übergang. Jetzt wächst die Unschärfe selbst (Blur-Radius 0 → Zielwert) zusammen
+   mit der Tönung, im selben Tempo und mit derselben Kurve wie die Karte. Der Halte-Schleier
+   des Frei-Knopfs ist ausgenommen: er folgt dem Finger und wird bei jeder Bewegung neu gemalt. */
+@keyframes schleierEin { from { background-color: transparent; -webkit-backdrop-filter: blur(0px); backdrop-filter: blur(0px); } }
+@keyframes schleierAus { to { background-color: transparent; -webkit-backdrop-filter: blur(0px); backdrop-filter: blur(0px); } }
+@keyframes karteAus { to { opacity: 0; } }
+@keyframes karteEin { from { opacity: 0; } }
+.ui-sheet-card { animation: sheetRise .3s cubic-bezier(.22,.61,.36,1) both; }
+#app .ui-sheet-scrim,
+#app [style*="backdrop-filter:var(--scrim-filter)"]:not(:where(#frei-hold *)),
+#app [data-act]:has(+ [data-layerbox]) { animation: schleierEin .3s cubic-bezier(.22,.61,.36,1) both; }
+/* Karten ohne eigene Bewegung (Nachfragen, Menüs) blenden mit dem Schleier auf und ab. */
+#app [style*="backdrop-filter:var(--scrim-filter)"]:not(:where(#frei-hold *)) ~ :not(.ui-sheet-card):not([data-layerbox]) { animation: karteEin .22s ease-out both; }
+/* Ein Knoten, der gerade ausläuft, fängt keine Eingaben mehr ab. */
+/* Auch verschachtelt: die Karte in einem auslaufenden Traeger bewegt sich mit. */
+[data-exit] .ui-sheet-card, .ui-sheet-card[data-exit], [data-layerbox][data-exit], [data-exit] [data-layerbox] { animation: sheetFall .22s cubic-bezier(.4,0,1,1) both; pointer-events: none; }
+#app .ui-sheet-scrim[data-exit],
+#app [data-exit] .ui-sheet-scrim,
+#app [data-exit][style*="backdrop-filter:var(--scrim-filter)"],
+#app [data-exit] [style*="backdrop-filter:var(--scrim-filter)"],
+#app [data-exit] [data-act]:has(+ [data-layerbox]) { animation: schleierAus .22s cubic-bezier(.4,0,1,1) both; pointer-events: none; }
+#app [data-exit] [style*="backdrop-filter:var(--scrim-filter)"] ~ :not(.ui-sheet-card):not([data-layerbox]) { animation: karteAus .18s ease-in both; pointer-events: none; }
+[data-layerbox] { animation: sheetRise .3s cubic-bezier(.22,.61,.36,1) both; }
+
+/* Fable 5 (J4/J5): Tages-Feed im Meet-Kalender — Wochenleiste oben fest, sanfter Magnet auf Tagen. */
+.df-head { position: sticky; top: 0; z-index: 3; background: var(--paper); }
+.wk-strip { background: var(--surface); border: 1px solid var(--ink-a09); border-radius: 16px; padding: 6px 5px; box-shadow: 0 1px 2px var(--shadow-04); overflow: hidden; touch-action: pan-y; }
+.wk-day { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 7px 0 6px; border-radius: 12px; background: transparent; border: 0; box-shadow: none; cursor: pointer; appearance: none; font-family: 'Instrument Sans', sans-serif; transition: background .15s ease, box-shadow .15s ease; }
+.wk-day > * { pointer-events: none; }
+.wk-wd { font-size: 10.5px; font-weight: 650; color: var(--muted-light); }
+.wk-num { font-size: 14.5px; font-weight: 650; font-variant-numeric: tabular-nums; color: var(--ink); }
+.wk-dots { height: 5px; display: flex; gap: 2px; align-items: center; }
+.wk-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); display: block; }
+.wk-dot-loop { background: var(--blue-dark); }
+.wk-day[data-today] { background: var(--green-a16); }
+.wk-day[data-today] .wk-num { color: var(--green-dark); }
+.wk-day[aria-pressed="true"] { background: var(--green-a10); box-shadow: inset 0 0 0 1.5px var(--green); }
+.wk-day[aria-pressed="true"] .wk-wd { color: var(--ink-soft); }
+.wk-day[aria-pressed="true"] .wk-num { color: var(--ink); }
+.wk-day[aria-pressed="true"][data-today] { background: var(--green); box-shadow: none; }
+.wk-day[aria-pressed="true"][data-today] .wk-wd { color: var(--on-accent); opacity: .72; }
+.wk-day[aria-pressed="true"][data-today] .wk-num { color: var(--on-accent); }
+.wk-day[aria-pressed="true"][data-today] .wk-dot { background: var(--on-accent); opacity: .85; }
+.screen-scroll:has([data-dayfeed]) { scroll-snap-type: y proximity; }
+.df-day { scroll-snap-align: start; scroll-margin-top: var(--df-head, 0px); padding: 10px 0 6px; border-top: 1px solid var(--ink-a05); }
+.df-day:first-child { border-top: 0; }
+.df-day.df-leer { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; }
+.df-label { display: block; font-size: 11px; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; color: var(--muted-light); padding: 0 4px; }
+.df-label.df-today { color: var(--green-dark); }
+.df-empty { font-size: 12px; color: var(--line-solid); padding-right: 4px; }
+
+/* Fable 3 (J1): Anstupsen — Druckzustand, Impuls, Zustand am Knopf. Alle Farben Tokens. */
+.nudge-kreis { display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--ink-a14); color: var(--ink); box-sizing: border-box; transition: transform .08s ease, background .16s ease, color .16s ease, border-color .16s ease, box-shadow .08s ease; }
+.nudge-knopf:active .nudge-kreis { transform: scale(.94); box-shadow: 0 1px 3px var(--shadow-07) !important; }
+.nudge-knopf[data-state="sent"] .nudge-kreis { background: var(--green-tint); border-color: var(--green-a28); color: var(--green-dark); }
+.nudge-knopf[data-state="sent"] .nudge-label { color: var(--green-dark) !important; }
+.nudge-punkt, .nudge-bogen { transform-box: fill-box; transform-origin: center; }
+.nudge-hinweis { display: block; font-size: 11.5px; color: var(--muted); max-height: 0; overflow: hidden; opacity: 0; transition: max-height .18s ease, opacity .18s ease; }
+.nudge-hinweis[data-on] { max-height: 20px; opacity: 1; }
+.nudge-hinweis--klein { position: absolute; right: 0; top: 100%; white-space: nowrap; background: var(--surface); border: 1px solid var(--ink-a10); border-radius: 8px; padding: 2px 8px; margin-top: 4px; box-shadow: 0 4px 12px var(--shadow-12); z-index: 5; }
+.nudge-hinweis--klein:not([data-on]) { padding: 0 8px; border-width: 0; }
+@keyframes toastOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(8px); } }
+
+/* ==========================================================================
+   Auftrag §4.5 — der Kalender zeigt EINEN Tag klar. Entwurf B ist nach der
+   Entscheidung entfallen; hier steht nur noch, was wirklich gebraucht wird.
+   ========================================================================== */
+
+/* Punkt je Meet — in beiden Entwürfen dasselbe Zeichen. */
+.ka-punkt { width: 5px; height: 5px; border-radius: 50%; background: var(--green); display: inline-block; }
+.ka-punkt-loop { background: var(--blue-dark); }
+.ka-nichts { font-size: 12.5px; color: var(--muted); padding: 2px 2px 6px; }
+.ka-nichts-akt { border: 0; background: transparent; padding: 0; color: var(--green-dark); font: 650 12.5px 'Instrument Sans', sans-serif; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+/* --- Der Tages-Feed --- */
+.ka-feed { scroll-snap-type: y mandatory; }
+.ka-tag { border-top: 1px solid var(--ink-a07); padding: 0; scroll-snap-align: start; scroll-margin-top: var(--df-head, 0px); }
+.ka-tag:first-child { border-top: 0; }
+.ka-kopf { display: flex; align-items: baseline; gap: 8px; padding: 13px 2px; width: 100%; border: 0; background: transparent; text-align: left; cursor: pointer; appearance: none; font-family: 'Instrument Sans', sans-serif; }
+.ka-wd { font-family: 'Bricolage Grotesque', sans-serif; font-size: 15px; font-weight: 650; color: var(--ink-soft); letter-spacing: -.01em; }
+.ka-datum { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ka-zahl { margin-left: auto; font-size: 12px; color: var(--muted-light); }
+.ka-punkte { display: flex; gap: 3px; align-items: center; }
+.ka-inhalt { display: none; }
+.ka-heute .ka-wd { color: var(--green-dark); }
+
+/* Der offene Tag: groß, mit Luft, und so hoch, dass genau er den Schirm füllt.
+   --ka-schirm setzt bindDayFeed aus der echten Höhe der Scrollfläche. */
+.ka-tag[data-offen="1"] { min-height: var(--ka-schirm, 520px); padding-bottom: 8px; }
+.ka-tag[data-offen="1"] .ka-kopf { flex-direction: column; align-items: flex-start; gap: 2px; padding: 22px 2px 2px; }
+.ka-tag[data-offen="1"] .ka-wd { font-size: 27px; color: var(--ink); line-height: 1.1; }
+.ka-tag[data-offen="1"] .ka-datum { font-size: 15px; color: var(--ink-soft); }
+.ka-tag[data-offen="1"] .ka-zahl { margin-left: 0; padding-top: 6px; font-size: 12px; color: var(--muted); }
+.ka-tag[data-offen="1"] .ka-punkte { display: none; }
+.ka-tag[data-offen="1"] .ka-inhalt { display: block; }
+.ka-tag[data-offen="1"].ka-heute .ka-wd { color: var(--green-dark); }
+
+/* ==========================================================================
+   Auftrag §5.2 — die Karte folgt der Einstellung der App.
+   Der Kartendienst liefert genau EIN Bild (hellgraues „Positron"). Ein zweites,
+   dunkles gibt es dort nicht. Statt einen zweiten Dienst dazuzuholen — noch ein
+   Empfänger für die Frage „wo schaut jemand hin" — wird dasselbe Bild umgekehrt:
+   Wasser bleibt Wasser, Grün bleibt Grün, nur Hell und Dunkel tauschen.
+   Umgekehrt wird AUSSCHLIESSLICH die Kartenfläche; Beschriftungen der App,
+   Kacheln und die Herkunftsangabe liegen darüber und bleiben unberührt.
+   ========================================================================== */
+:root[data-theme="dark"] .maplibregl-canvas {
+  filter: invert(1) hue-rotate(180deg) brightness(.92) contrast(.9) saturate(.85);
+}
+:root[data-theme="dark"] .maplibregl-ctrl-attrib {
+  background: rgba(26, 24, 22, .82) !important;
+  color: var(--muted) !important;
+}
+:root[data-theme="dark"] .maplibregl-ctrl-attrib a { color: var(--ink-soft) !important; }
+
+/* Auftrag §7 — „Steht die Zeit auf jetzt, sieht man es kaum."
+   Datum und Uhrzeit atmen leicht, solange „jetzt" eingestellt ist. Kein Blinken, kein
+   Farbwechsel: nur ein ruhiges Auf und Ab der Deckkraft, das man aus dem Augenwinkel
+   bemerkt. Wer Bewegung abgestellt hat, bekommt keine. */
+@keyframes jetztAtmen { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+.jetzt-atmen { animation: jetztAtmen 2.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .jetzt-atmen { animation: none; } }
+
+/* ==========================================================================
+   Runde 4 (C1) — Sheets nach unten wegwischen (core/html.js sheetWischen).
+   Vorbereitet wird NUR während des Zugs: will-change und kein Übergang, damit die Karte Bild
+   für Bild dem Finger folgt. Weggewischt läuft sie mit der Kurve des Öffnens von der Stelle
+   des Fingers weiter — die Standard-Auslaufanimation würde sie sonst an den Anfang zurücksetzen.
+   ========================================================================== */
+[data-sheet-zug="aktiv"] { will-change: translate; transition: none !important; }
+[data-sheet-zug="aktiv"], [data-sheet-zug="aktiv"] * { overscroll-behavior-y: none; }
+[data-sheet-schleier="aktiv"] { will-change: opacity; transition: none !important; }
+#app [data-sheet-zug="zu"] { animation: none !important; pointer-events: none; }
+#app [data-sheet-schleier="zu"] { pointer-events: none; }
+
+/* Runde 4 (C3, Jonathan: „Einige Buttons sind relativ klein, zum Beispiel die drei Punkte.")
+   Ein kleiner Knopf behält seine Optik, trifft aber auf mindestens 44 × 44 px — die Fläche
+   liegt unsichtbar um seine Mitte. Gesetzt über das Merkmal data-treffer. */
+[data-treffer] { position: relative; }
+[data-treffer]::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 46px); height: max(100%, 46px); transform: translate(-50%, -50%); border-radius: inherit; }
+
+/* Runde 4 (E2, Jonathan: „Obere Leiste ist Meet öffnen, nur obere Leiste.")
+   Eine ganze Leiste als EINE Trefferfläche: die Leiste trägt data-leiste, ihr Ziel-Knopf
+   data-leiste-ziel. Seine unsichtbare Fläche spannt über die ganze Leiste; andere Knöpfe in der
+   Leiste liegen darüber und bleiben eigenständig bedienbar. */
+[data-leiste] { position: relative; }
+[data-leiste] [data-act]:not([data-leiste-ziel]) { position: relative; z-index: 1; }
+[data-leiste-ziel]::after { content: ""; position: absolute; inset: -6px -12px; }
+
+/* Runde 4 (E3): ein zurückgenommener Anstupser — ruhig, gestrichelt, die Sperre läuft weiter. */
+.nudge-knopf[data-state="zurueck"] .nudge-kreis { background: var(--surface); border-style: dashed; border-color: var(--ink-a22); color: var(--muted); }
+.nudge-knopf[data-state="zurueck"] .nudge-label { color: var(--muted) !important; }
+
+/* Runde 4 (D6): Crew-Karte weit herausgezoomt — nur Profilbilder, genau am Ort, überlappend. */
+[data-role="crew-map-anker"][data-kompakt="1"] [data-role="anker-name"] { display: none; }
+[data-role="crew-map-anker"][data-kompakt="1"] [data-anchor] { padding: 3px !important; gap: 0 !important; }
+[data-role="crew-map-anker"][data-baustein="1"] { display: none; }
+
+/* ==========================================================================
+   Runde 5 (P2) — Gruppen & Personen
+   B4: Profilbild groß ansehen (web/ui/bild-gross.js). Der Grund ist fast deckend und weich
+   unscharf — hell auf Papier, dunkel auf Nacht —, damit das Bild allein im Blick steht.
+   C1: Wer gerade zur Gruppe hinzugefügt wurde, leuchtet in der Mitgliederliste kurz grün auf.
+   ========================================================================== */
+:root { --bild-gross-grund: rgba(246, 243, 238, .9); }
+:root[data-theme="dark"] { --bild-gross-grund: rgba(14, 12, 10, .88); }
+[data-role="bild-gross"] button:focus { outline: none; }
+[data-role="bild-gross"] button:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+/* C1: Die Suche im „Personen hinzufügen"-Sheet trägt ihr eigenes ruhiges ✕ statt des blauen Systemknopfs. */
+#pw-suche::-webkit-search-cancel-button, #pw-suche::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
+/* E1 (Übergabe P4): Der offene Mitfahren-Bereich im Raum-Panel scrollt in sich; solange darunter noch
+   etwas kommt, blendet er unten weich aus (Maske, keine Fläche darüber). */
+[data-role="raum-mitfahren-flaeche"]::-webkit-scrollbar { display: none; }
+[data-role="raum-mitfahren-flaeche"][data-mehr="1"] { -webkit-mask-image: linear-gradient(to bottom, var(--ink) calc(100% - 30px), transparent); mask-image: linear-gradient(to bottom, var(--ink) calc(100% - 30px), transparent); }
+@keyframes r5NeuDabei { 0%, 35% { background: var(--green-tint); } 100% { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { [data-act="cd-person"] { animation: none !important; } }
+
+/* ==========================================================================
+   Runde 5 (P4) — Mitfahren (web/ui/mitfahren.js)
+   Die Abholreihenfolge ist eine kleine Zeitleiste: eine ruhige Linie verbindet die nummerierten
+   Stopps mit dem Ziel. Knöpfe geben beim Drücken nur in der Deckkraft nach — keine Größe ändert
+   sich, damit auch beim Tippen nichts springt.
+   ========================================================================== */
+ol[data-role="mitfahren-reihenfolge"]::before { content: ""; position: absolute; left: 14px; top: 15px; bottom: 15px; width: 2px; border-radius: 1px; background: var(--ink-a10); }
+[data-role="mitfahren-kachel"], [data-role="mitfahren-inhalt"] button { -webkit-tap-highlight-color: transparent; }
+[data-role="mitfahren-kachel"]:active > span, [data-role="mitfahren-inhalt"] button:not([aria-disabled="true"]):active > span { opacity: .62; }
+[data-role="mitfahren-kachel"]:focus { outline: none; }
+[data-role="mitfahren-inhalt"] button:focus { outline: none; }
+[data-role="mitfahren-kachel"]:focus-visible, [data-role="mitfahren-inhalt"] button:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+/* ==========================================================================
+   Runde 5 (P5) — FREE und Mitteilungen
+   Der Frei-Hinweis über dem Knopf (Auch frei · Spontan treffen, Jetzt frei?) und die Lust-Pille
+   neben dem Knopf kommen weich herein. Nur beim Erscheinen: der Abgleich lässt vorhandene Knoten
+   stehen, ein weiteres Neuzeichnen startet die Bewegung nicht erneut.
+   ========================================================================== */
+@keyframes p5HinweisRein { from { opacity: 0; transform: translateY(10px) scale(.98); } }
+@keyframes p5PilleRein { from { opacity: 0; scale: .86; } }
+[data-role="frei-hinweis-karte"] { animation: p5HinweisRein .28s cubic-bezier(.2, .8, .2, 1); }
+[data-role="lust-pille"] { animation: p5PilleRein .26s cubic-bezier(.2, .8, .2, 1) .12s both; }
+[data-role="lust-pille"]:active, [data-act="frei-spontan"]:active, [data-act="frei-jetzt"]:active { filter: brightness(.94); }
+[data-role="anfrage"] button:active { filter: brightness(.94); }
+@media (prefers-reduced-motion: reduce) {
+  [data-role="frei-hinweis-karte"], [data-role="lust-pille"] { animation: none; }
+}
+
+/* Runde 5 (P3) — Karten: meine Lage (ui/map.js › .crew-ich). Ein Punkt wie auf den Karten des
+   Geräts: Blau mit weißem Rand und leichtem Hof; eine nicht mehr frische Lage wird grau. Der Rand
+   bleibt in beiden Themen weiß — die dunkle Karte ist ein umgekehrtes helles Bild, der Punkt liegt
+   darüber und wird nicht mit umgekehrt. Alles Übrige der Karten-Bausteine steht in ui/map.js. */
+:root {
+  --karte-ich: #2f7ae5;
+  --karte-ich-hof: rgba(47, 122, 229, .16);
+  --karte-ich-rand: #ffffff;
+  --karte-ich-alt: #8b95a3;
+}
+:root[data-theme="dark"] {
+  --karte-ich: #4a93f0;
+  --karte-ich-hof: rgba(74, 147, 240, .24);
+  --karte-ich-rand: #ffffff;
+  --karte-ich-alt: #7f8894;
+}
+
+/* Runde 5 (Chef): Sheets stehen auf ganzen Pixeln. Gemessen (P1, DPR 3): max-height 86 % ergab y = 118,17 px —
+   Text auf halben Gerätepixeln wirkt in WebKit weich. round() rundet auf ganze CSS-Pixel; kennt ein Browser
+   round() noch nicht, gilt die Angabe als ungültig und die bisherigen 86 % bleiben. */
+.ui-sheet-card { max-height: round(down, 86%, 1px) !important; }
