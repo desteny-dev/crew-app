@@ -1,0 +1,173 @@
+/* Einladungsseite (V1-Kern §6). Farben, Schriften, Lademarke, Platzhalter und Hintergrund kommen aus
+   ../styles.css (dieselben Tokens wie die App, hell und dunkel). Hier steht nur, was diese Seite
+   anders braucht: Sie ROLLT wie eine Webseite (die App hält das Dokument fest), und ihre Bausteine
+   (Präfix .ein-) folgen den Maßen der App: Karte 22 px Rundung auf --surface, Zeichen-Kachel auf
+   --field, Titel in Bricolage, Hauptknopf als grüne Pille wie „Meet planen" in Find. */
+
+/* Die App hält auf Handys das Dokument fest (styles.css: height 100svh, overflow hidden). Eine
+   Einladung ist eine Webseite — sie muss rollen dürfen, und die Adressleiste darf mitgehen. */
+@media (pointer: coarse), (max-width: 900px) {
+  html, body { height: auto; overflow: visible; }
+}
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body.ein { margin: 0; background: var(--paper); color: var(--ink); font-family: "Instrument Sans", system-ui, sans-serif; overflow-x: hidden; }
+
+/* Das Muster der App, hier fest hinter der rollenden Seite. */
+.ein-grund { position: fixed; }
+
+.ein-seite {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  min-height: 100svh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: calc(env(safe-area-inset-top, 0px) + 8px) 20px 0;
+}
+@media (min-width: 700px) { .ein-seite { padding-top: 5vh; } }
+
+.ein-oben { display: flex; align-items: center; height: 52px; }
+.ein-wortmarke { padding-left: 2px; color: var(--ink); text-decoration: none; }
+
+.ein-inhalt { flex: 1; display: flex; flex-direction: column; gap: 16px; padding-top: 14px; }
+.ein-inhalt:not([data-zustand="laden"]) > * { animation: einEin .24s ease-out both; }
+@keyframes einEin { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* --- Wer lädt ein -------------------------------------------------------------------------- */
+.ein-von { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.ein-avatar {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  color: var(--on-accent);
+  font-weight: 650;
+  letter-spacing: -.01em;
+}
+.ein-avatar > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.ein-satz {
+  margin: 0;
+  min-width: 0;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 26px;
+  line-height: 1.12;
+  font-weight: 650;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+/* --- Die Karte ----------------------------------------------------------------------------- */
+.ein-karte {
+  position: relative;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: 0 1px 2px var(--shadow-04), 0 10px 28px var(--shadow-06);
+}
+.ein-karte-kopf { display: flex; align-items: center; gap: 13px; min-width: 0; }
+/* Mit Foto: das Bild randlos oben, der Rest wie ohne. */
+.ein-karte-mit-bild { padding: 0; overflow: hidden; }
+.ein-karte-mit-bild .ein-karte-innen { padding: 16px 16px 14px; }
+.ein-karte-mit-bild .ein-bild { aspect-ratio: 2 / 1; }
+.ein-karte-mit-bild .ein-nachweis { margin: 6px 0 0; }
+.ein-kachel { flex: none; display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; border-radius: 15px; background: var(--field); }
+.ein-titel {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 21px;
+  line-height: 1.18;
+  font-weight: 650;
+  letter-spacing: -.025em;
+  overflow-wrap: anywhere;
+}
+.ein-fakten { list-style: none; margin: 12px 0 0; padding: 0; }
+.ein-fakt { display: flex; align-items: center; gap: 11px; min-height: 42px; font-size: 15px; line-height: 1.3; color: var(--ink-soft); }
+.ein-fakt + .ein-fakt { border-top: 1px solid var(--ink-a06); }
+.ein-fakt > span { min-width: 0; overflow-wrap: anywhere; }
+.ein-fakt[data-role="einladung-zahl"] { color: var(--green-dark); font-weight: 600; }
+.ein-fakt[data-role="einladung-zahl"] svg path, .ein-fakt[data-role="einladung-zahl"] svg circle { stroke: var(--green-dark); }
+.ein-karte-still .ein-kachel { opacity: .55; }
+.ein-karte-still .ein-fakt[data-role="einladung-zahl"] { color: var(--ink-soft); font-weight: 400; }
+.ein-karte-still .ein-fakt[data-role="einladung-zahl"] svg path, .ein-karte-still .ein-fakt[data-role="einladung-zahl"] svg circle { stroke: var(--muted); }
+
+.ein-pille { flex: none; display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; background: var(--field); color: var(--ink-soft); font-size: 12px; font-weight: 650; white-space: nowrap; }
+.ein-pille-rot { background: var(--red-tint); color: var(--danger); }
+
+/* Tipp: Bild oben, randlos in der Karte — wie die Karten in Find. */
+.ein-karte-tipp { padding: 0 0 12px; overflow: hidden; }
+.ein-bild { position: relative; display: block; aspect-ratio: 16 / 10; background: var(--field); }
+.ein-bild > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.ein-bild-zeichen { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.ein-karte-kopf-tipp { padding: 14px 16px 2px; }
+.ein-karte-tipp .ein-fakten { margin: 4px 0 0; padding: 0 16px; }
+/* Fotos aus Wikimedia (CC BY-SA) brauchen ihren Urheber — klein, aber da. */
+.ein-nachweis { margin: 6px 16px 0; font-size: 11.5px; line-height: 1.35; color: var(--muted); }
+
+/* --- Der Knopf ----------------------------------------------------------------------------- */
+/* Er bleibt beim Rollen unten stehen (ein langes Tipp-Bild schiebt ihn sonst aus dem Bild). */
+.ein-handlung {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  margin: 2px -20px 0;
+  padding: 12px 20px calc(env(safe-area-inset-bottom, 0px) + 14px);
+  background: linear-gradient(to bottom, transparent, var(--paper) 16px);
+}
+.ein-knopf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 56px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--green);
+  color: var(--on-accent);
+  box-shadow: 0 8px 22px var(--green-a26);
+  font: 650 17px/1.2 "Instrument Sans", system-ui, sans-serif;
+  letter-spacing: -.005em;
+  text-decoration: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .12s ease-out, opacity .12s ease-out;
+}
+.ein-knopf:active { transform: scale(.98); }
+.ein-knopf:focus { outline: none; }
+.ein-knopf:focus-visible { outline: 3px solid var(--green-a45); outline-offset: 3px; }
+.ein-knopf + .ein-knopf { margin-top: 10px; }
+.ein-knopf-leise { background: var(--surface); color: var(--ink); box-shadow: none; border: 1px solid var(--ink-a12); }
+.ein-knopf-warten { opacity: .72; cursor: progress; }
+.ein-hinweis { margin: 10px 6px 0; text-align: center; font-size: 13.5px; line-height: 1.4; color: var(--muted); text-wrap: balance; }
+.ein-hinweis-oben { margin: 0 6px 12px; color: var(--ink-soft); font-size: 14.5px; }
+
+/* --- Andere Zustände ----------------------------------------------------------------------- */
+.ein-lage { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 36px 6px 4px; text-align: center; }
+.ein-lage-zeichen { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--field); }
+.ein-text { margin: 0; font-size: 15px; line-height: 1.45; color: var(--ink-soft); text-wrap: pretty; }
+.ein-text-mitte { text-align: center; padding: 0 8px; }
+
+/* --- Laden --------------------------------------------------------------------------------- */
+.ein-laden { display: flex; flex-direction: column; gap: 16px; }
+.ein-lade-zeile { display: block; width: 62%; height: 24px; border-radius: 8px; }
+.ein-karte-laden { display: grid; place-items: center; min-height: 176px; }
+.ein-unsichtbar { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* --- Fuß ----------------------------------------------------------------------------------- */
+.ein-unten { padding: 22px 0 calc(env(safe-area-inset-bottom, 0px) + 22px); text-align: center; }
+.ein-slogan { margin: 0; font-size: 13px; line-height: 1.4; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ein-inhalt:not([data-zustand="laden"]) > * { animation: none; }
+  .ein-knopf { transition: none; }
+}

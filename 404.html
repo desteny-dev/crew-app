@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!--
+      GitHub Pages liefert diese Seite für JEDE unbekannte Adresse (Paket H, ALGORITHMUS §6.1).
+      Ortsseiten haben schöne Adressen (…/ort/at/cafe-seeblick-n123), die es als Datei nicht gibt —
+      diese Seite leitet sie sofort auf ort.html?ort=n123 weiter. Welche Adresse ein Ort ist, entscheidet
+      EINE Stelle: web/unternehmen/pfad.js (zielAus404). Alles andere bekommt ein ehrliches „nicht gefunden“.
+      Relative Pfade gehen hier nicht (die Seite steht unter beliebigen Adressen) — die Wurzel wird berechnet.
+    -->
+    <title>Seite nicht gefunden</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="data:," />
+    <style>
+      :root { color-scheme: light dark; }
+      body { margin: 0; min-height: 100svh; display: grid; place-items: center; background: #f6f3ee; color: #211e1a;
+        font: 400 16px/1.5 "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif; }
+      @media (prefers-color-scheme: dark) { body { background: #1a1816; color: #f1ece4; } a { color: #7fd1a6; } }
+      main { padding: 24px 16px; max-width: 420px; text-align: center; }
+      h1 { font-size: 24px; letter-spacing: -.02em; margin: 0 0 8px; }
+      p { margin: 0 0 20px; opacity: .75; }
+      a { color: #17694a; font-weight: 650; }
+      html[data-weiter] main { visibility: hidden; }
+    </style>
+    <script>
+      (function () {
+        var pfad = location.pathname;
+        var i = pfad.indexOf('/ort/');
+        var basis = i >= 0 ? pfad.slice(0, i + 1)
+          : (/\.github\.io$/.test(location.hostname) ? '/' + (pfad.split('/').filter(Boolean)[0] || '') + '/' : '/');
+        window.__crewBasis = basis.replace(/\/+$/, '/');
+        if (i < 0) return;
+        document.documentElement.dataset.weiter = '1';
+        var zeigen = function () { delete document.documentElement.dataset.weiter; };
+        import(window.__crewBasis + 'unternehmen/pfad.js').then(function (m) {
+          var ziel = m.zielAus404(pfad, location.search, location.hash);
+          if (ziel) location.replace(ziel); else zeigen();
+        }).catch(zeigen);
+      })();
+    </script>
+  </head>
+  <body>
+    <main id="nicht-gefunden">
+      <h1>Diese Seite gibt es nicht</h1>
+      <p>Die Adresse ist falsch oder veraltet.</p>
+      <a id="zur-app" href="/">Zur Startseite</a>
+    </main>
+    <script>
+      document.getElementById('zur-app').href = window.__crewBasis || '/';
+    </script>
+  </body>
+</html>

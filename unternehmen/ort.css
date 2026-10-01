@@ -1,0 +1,219 @@
+/* Ortsseite und Unternehmens-Bereich (Paket H, ALGORITHMUS §6). Farben, Schriften und Hintergrund kommen aus
+   ../styles.css (dieselben Tokens wie App und Einladungsseite, hell und dunkel). Hier steht nur, was diese Seite
+   braucht: Sie rollt wie eine Webseite, Bausteine mit Präfix .ort-, Raster 4/8 px, Karten 22 px Rundung.
+   Auf breiten Schirmen nutzt die Inhaber-Ansicht zwei Spalten (Werte links, Bearbeiten rechts). */
+
+@media (pointer: coarse), (max-width: 900px) {
+  html, body { height: auto; overflow: visible; }
+}
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+:root { --ort-gold: #c8a04a; --ort-blau: var(--blue-dark); }
+body.ort { margin: 0; background: var(--paper); color: var(--ink); font-family: "Instrument Sans", system-ui, sans-serif; overflow-x: hidden; }
+.ort-grund { position: fixed; }
+.ort *, .ort *::before, .ort *::after { box-sizing: border-box; }
+
+.ort-seite {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 680px;
+  min-height: 100svh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: calc(env(safe-area-inset-top, 0px) + 8px) 16px 0;
+}
+.ort-seite[data-breit] { max-width: 1120px; }
+@media (min-width: 700px) { .ort-seite { padding-left: 24px; padding-right: 24px; } }
+
+.ort-oben { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; }
+.ort-wortmarke { color: var(--ink); text-decoration: none; display: inline-flex; align-items: baseline; gap: 10px; flex: none; }
+.ort-wortmarke .brand { padding-left: 0; }
+.ort-wortmarke small { font: 650 11px/1 "Instrument Sans", sans-serif; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.ort-konto { display: flex; align-items: center; gap: 8px; min-width: 0; font-size: 13px; color: var(--ink-soft); }
+.ort-konto span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 44vw; }
+@media (max-width: 559px) { .ort-konto span { display: none; } .ort-wortmarke small { display: none; } }
+.ort-titel { margin: 0 0 8px; font: 650 21px/1.2 "Bricolage Grotesque", sans-serif; letter-spacing: -.02em; color: var(--ink); }
+.ort-karte > h2.ort-titel { font: 650 21px/1.2 "Bricolage Grotesque", sans-serif; letter-spacing: -.02em; text-transform: none; color: var(--ink); }
+.ort-fenster { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.ort-fenster[hidden] { display: none; }
+
+.ort-inhalt { flex: 1; display: flex; flex-direction: column; gap: 16px; padding: 8px 0 24px; }
+.ort-inhalt > * { animation: ortEin .22s ease-out both; }
+@keyframes ortEin { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.ort-karte {
+  position: relative;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: 0 1px 2px var(--shadow-04), 0 10px 28px var(--shadow-06);
+  min-width: 0;
+}
+.ort-karte > h2, .ort-abschnitt-titel {
+  margin: 0 0 12px;
+  font: 650 11.5px/1.2 "Instrument Sans", sans-serif;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.ort-karte p { margin: 0; }
+
+/* --- Kopf: Name, Art, Adresse, Ring ------------------------------------------------------------ */
+.ort-kopf { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: start; }
+.ort-name {
+  margin: 0;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 650;
+  letter-spacing: -.032em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.ort-art { margin: 6px 0 0; font-size: 15px; color: var(--ink-soft); }
+.ort-adresse { margin: 2px 0 0; font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
+.ort-ringplatz { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 88px; }
+.ort-stufe { font: 650 13px/1.2 "Instrument Sans", sans-serif; color: var(--ink-soft); text-align: center; max-width: 120px; }
+.ort-pillen { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.ort-pille { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 4px 12px; border-radius: 999px; background: var(--field); color: var(--ink-soft); font-size: 13px; font-weight: 650; }
+.ort-pille[data-ton="gut"] { background: var(--green-tint); color: var(--green-dark); }
+.ort-pille[data-ton="warn"] { background: var(--orange-tint); color: var(--orange-dark); }
+.ort-pille[data-ton="rot"] { background: var(--red-tint); color: var(--danger); }
+.ort-pille::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: .85; }
+.ort-neu-text { margin-top: 12px !important; font-size: 14.5px; line-height: 1.45; color: var(--ink-soft); }
+
+/* --- Ring -------------------------------------------------------------------------------------- */
+.ort-ring { display: block; flex: none; }
+.ort-ring-spur { stroke: var(--field-deep); }
+.ort-ring-wert { stroke: var(--ink); }
+.ort-ring-punkt { fill: var(--green); }
+.ort-ring-zahl { fill: var(--ink); font: 700 19px/1 "Bricolage Grotesque", sans-serif; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.ort-ring[data-stufe="gut"] .ort-ring-wert { stroke: var(--ort-blau); }
+.ort-ring[data-stufe="sehr_gut"] .ort-ring-wert { stroke: var(--green); }
+.ort-ring[data-stufe="herausragend"] .ort-ring-wert { stroke: var(--ink); }
+.ort-ring[data-stufe="herausragend"] .ort-ring-punkt { fill: var(--ort-gold); }
+.ort-ring[data-stufe="unter_70"] .ort-ring-wert { stroke: var(--muted-light); }
+.ort-ring[data-stufe="unter_70"] .ort-ring-punkt, .ort-ring[data-stufe="ohne"] .ort-ring-punkt { fill: var(--muted-light); }
+.ort-ring[data-stufe="neu"] .ort-ring-spur { stroke: var(--line-strong); }
+
+/* --- Listen ------------------------------------------------------------------------------------ */
+.ort-liste { list-style: none; margin: 0; padding: 0; }
+.ort-liste > li { display: flex; gap: 12px; align-items: flex-start; min-height: 44px; padding: 10px 0; font-size: 15px; line-height: 1.4; }
+.ort-liste > li + li { border-top: 1px solid var(--ink-a06); }
+.ort-liste .ort-zeichen { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--green-tint); color: var(--green-dark); font-size: 13px; font-weight: 700; }
+.ort-liste .ort-zeichen[data-ton="warn"] { background: var(--orange-tint); color: var(--orange-dark); }
+.ort-liste .ort-zeichen[data-ton="leise"] { background: var(--field); color: var(--muted); }
+.ort-liste .ort-zeile-text { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+.ort-liste .ort-zeile-neben { flex: none; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ort-leise { color: var(--muted); font-size: 14px; line-height: 1.45; }
+.ort-text { font-size: 15px; line-height: 1.5; color: var(--ink-soft); overflow-wrap: anywhere; }
+.ort-vom-unternehmen { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 999px; background: var(--field); color: var(--muted); font-size: 11px; font-weight: 650; letter-spacing: .02em; vertical-align: middle; margin-left: 6px; }
+.ort-zeiten { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; font-size: 15px; font-variant-numeric: tabular-nums; }
+.ort-zeiten dt { color: var(--ink-soft); font-weight: 600; }
+.ort-zeiten dd { margin: 0; color: var(--ink); }
+.ort-fotos { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; }
+.ort-foto { position: relative; aspect-ratio: 1; border-radius: 14px; overflow: hidden; background: var(--field); }
+.ort-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ort-foto-marke { position: absolute; left: 6px; bottom: 6px; padding: 2px 8px; border-radius: 999px; background: var(--paper-a90); color: var(--ink); font-size: 11px; font-weight: 650; }
+.ort-foto-knopf { position: absolute; top: 6px; right: 6px; min-width: 32px; min-height: 32px; border-radius: 999px; border: 0; background: var(--paper-a90); color: var(--ink); font-size: 12px; font-weight: 650; cursor: pointer; padding: 0 10px; }
+.ort-foto-knopf[data-links] { right: auto; left: 6px; top: 6px; }
+
+/* --- Knöpfe und Felder ------------------------------------------------------------------------- */
+.ort-knopf {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 0 20px; border: 0; border-radius: 999px;
+  background: var(--green); color: var(--on-accent); box-shadow: 0 8px 20px var(--green-a26);
+  font: 650 16px/1.2 "Instrument Sans", system-ui, sans-serif; text-decoration: none; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; transition: transform .12s ease-out, opacity .12s ease-out;
+}
+.ort-knopf:active { transform: scale(.98); }
+.ort-knopf:focus-visible, .ort-knopf-leise:focus-visible, .ort-textknopf:focus-visible { outline: 3px solid var(--green-a45); outline-offset: 3px; }
+.ort-knopf[disabled] { opacity: .55; cursor: default; }
+.ort-knopf-voll { width: 100%; }
+.ort-knopf-leise { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--ink-a14); background: var(--surface); color: var(--ink); font: 650 14.5px/1.2 "Instrument Sans", sans-serif; cursor: pointer; text-decoration: none; }
+.ort-knopf-gefahr { color: var(--danger); border-color: var(--red-a30); }
+.ort-textknopf { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--green-dark); font: 650 14.5px/1.2 "Instrument Sans", sans-serif; cursor: pointer; text-decoration: none; }
+.ort-knopfreihe { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+.ort-feld, .ort-bereich, .ort-auswahl {
+  width: 100%; min-height: 48px; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line-solid);
+  background: var(--surface); color: var(--ink); font: 400 16px/1.35 "Instrument Sans", sans-serif; outline: none;
+}
+.ort-bereich { min-height: 96px; resize: vertical; }
+.ort-feld:focus, .ort-bereich:focus, .ort-auswahl:focus { border-color: var(--green); box-shadow: 0 0 0 3px var(--green-a20); }
+.ort-code { letter-spacing: .35em; font-size: 24px; font-variant-numeric: tabular-nums; text-align: center; max-width: 240px; }
+.ort-beschriftung { display: block; margin: 12px 0 6px; font-size: 13.5px; font-weight: 650; color: var(--ink-soft); }
+.ort-zaehler { float: right; font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ort-meldung { margin-top: 10px !important; font-size: 14px; line-height: 1.45; color: var(--danger); }
+.ort-meldung[data-gut] { color: var(--green-dark); }
+.ort-haekchen { display: flex; gap: 10px; align-items: flex-start; margin-top: 12px; font-size: 14px; line-height: 1.4; color: var(--ink-soft); cursor: pointer; }
+.ort-haekchen input { width: 22px; height: 22px; margin: 0; flex: none; accent-color: var(--green); }
+.ort-segmente { display: inline-flex; padding: 3px; border-radius: 12px; background: var(--field); box-shadow: inset 0 1px 3px var(--ink-a07); gap: 2px; flex-wrap: wrap; }
+.ort-segmente button { min-height: 40px; min-width: 56px; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; color: var(--ink-soft); font: 650 14px/1 "Instrument Sans", sans-serif; cursor: pointer; }
+.ort-segmente button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px var(--shadow-08); }
+
+/* --- Beanspruchen: Wege ------------------------------------------------------------------------ */
+.ort-wege { display: flex; flex-direction: column; gap: 8px; }
+.ort-weg { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 64px; padding: 12px 14px; border-radius: 16px; border: 1px solid var(--line-solid); background: var(--surface); color: var(--ink); text-align: left; font: inherit; cursor: pointer; }
+.ort-weg:hover { border-color: var(--green); }
+.ort-weg b { display: block; font-size: 15.5px; }
+.ort-weg small { display: block; margin-top: 2px; font-size: 13px; color: var(--muted); }
+.ort-weg .ort-weg-stufe { margin-left: auto; flex: none; font-size: 11px; font-weight: 650; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+.ort-token { display: block; margin: 8px 0; padding: 12px; border-radius: 12px; background: var(--field); font: 600 14px/1.4 ui-monospace, "SF Mono", Consolas, monospace; overflow-wrap: anywhere; user-select: all; }
+
+/* --- Inhaber: Rohwert, Achsen, Verlauf --------------------------------------------------------- */
+.ort-raster { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+@media (min-width: 960px) { .ort-raster { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; } .ort-spalte { display: flex; flex-direction: column; gap: 16px; min-width: 0; } }
+@media (max-width: 959px) { .ort-spalte { display: contents; } }
+.ort-rohsatz { font: 600 17px/1.4 "Instrument Sans", sans-serif; color: var(--ink); text-wrap: pretty; }
+.ort-achsen { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+.ort-achse-kopf { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; }
+.ort-achse-kopf b { font-weight: 650; }
+.ort-achse-kopf span { color: var(--muted); font-variant-numeric: tabular-nums; }
+.ort-achse-spur { position: relative; height: 10px; margin-top: 6px; border-radius: 999px; background: var(--field); }
+.ort-achse-wert { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; background: var(--green); }
+.ort-achse-wert[data-unter] { background: var(--orange); }
+.ort-achse-median { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; border-radius: 1px; background: var(--ink); }
+.ort-legende { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; font-size: 12.5px; color: var(--muted); }
+.ort-legende i { display: inline-block; width: 12px; height: 8px; border-radius: 4px; background: var(--green); margin-right: 6px; vertical-align: middle; }
+.ort-legende i[data-median] { width: 2px; height: 12px; border-radius: 1px; background: var(--ink); }
+.ort-verlauf { display: block; width: 100%; height: auto; }
+.ort-verlauf .v-linie { fill: none; stroke: var(--green); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.ort-verlauf .v-punkt { fill: var(--green); }
+.ort-verlauf .v-grenze { stroke: var(--muted-light); stroke-width: 1; stroke-dasharray: 4 4; }
+.ort-verlauf .v-text { fill: var(--muted); font: 500 11px/1 "Instrument Sans", sans-serif; font-variant-numeric: tabular-nums; }
+.ort-verlauf .v-wert { fill: var(--ink); font: 650 11px/1 "Instrument Sans", sans-serif; font-variant-numeric: tabular-nums; }
+.ort-hinweis-karte { border-color: var(--orange-a28); background: var(--orange-tint); }
+.ort-hinweis-karte .ort-text { color: var(--ink); }
+
+/* Wochenplan */
+.ort-woche { display: flex; flex-direction: column; gap: 8px; }
+.ort-tag { display: grid; grid-template-columns: 28px 44px minmax(0, 1fr); gap: 4px; align-items: center; min-height: 48px; }
+.ort-tag > b { font-size: 14px; }
+.ort-tag-zeiten { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.ort-tag-zeiten input { min-height: 40px; padding: 6px 8px; border-radius: 10px; border: 1px solid var(--line-solid); background: var(--surface); color: var(--ink); font: 400 15px/1 "Instrument Sans", sans-serif; width: 100px; }
+.ort-tag-offen { display: grid; place-items: center; width: 44px; height: 44px; cursor: pointer; }
+.ort-tag-offen input { width: 22px; height: 22px; margin: 0; accent-color: var(--green); }
+.ort-tag-zu-text { display: none; color: var(--muted); font-size: 14px; }
+.ort-tag[data-zu] .ort-tag-zeiten { display: none; }
+.ort-tag[data-zu] .ort-tag-zu-text { display: inline; }
+
+/* Laden / Lagen */
+.ort-lage { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 48px 8px; text-align: center; }
+.ort-lage h1 { margin: 0; font: 650 24px/1.2 "Bricolage Grotesque", sans-serif; letter-spacing: -.02em; }
+.ort-lade { min-height: 180px; display: grid; place-items: center; }
+
+/* Anmeldung über der Seite (derselbe Bildschirm wie in der App, web/ui/auth-screen.js) */
+.ort-anmelden { position: fixed; inset: 0; z-index: 50; }
+.ort-anmelden-zu { position: fixed; z-index: 51; top: calc(env(safe-area-inset-top, 0px) + 12px); left: 12px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--ink-a12); background: var(--surface); color: var(--ink); font: 650 14.5px/1 "Instrument Sans", sans-serif; cursor: pointer; }
+
+/* Fuß */
+.ort-unten { padding: 20px 0 calc(env(safe-area-inset-bottom, 0px) + 24px); text-align: center; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+.ort-unten a { color: var(--ink-soft); }
+.ort-unsichtbar { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ort-inhalt > * { animation: none; }
+  .ort-knopf { transition: none; }
+}

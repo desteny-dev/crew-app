@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!--
+      Ortsseite und Unternehmens-Bereich (Paket H, ALGORITHMUS §6). EINE Seite für jeden Ort:
+      ort.html?ort=<schluessel> — die schöne Adresse …/ort/<land>/<slug>-<schluessel> leitet web/404.html hierher.
+      Öffentlich: Name, Adresse, Art, Crew Score mit Ring, in der App sichtbar ja/nein, 3 Gründe, Beanspruchen.
+      Angemeldet als Inhaber: Rohwert, Achsen mit Median, Verbesserungen, Verlauf, Meldungen, Events, Bearbeiten.
+      Lädt NICHT die App — nur die eigenen Module unter unternehmen/, den Anmeldeschirm der App und (erst bei
+      Bedarf) die Supabase-Bibliothek. Kein Capacitor, keine Hülle: das ist die Website.
+    -->
+    <title>Ort · Crew</title>
+    <meta name="description" content="Crew Score, Gründe und Unternehmens-Bereich für diesen Ort." />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#f6f3ee" />
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="./icons/favicon-32.png" sizes="32x32" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="./icons/favicon-32-dunkel.png" sizes="32x32" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <link rel="preload" href="./fonts/BricolageGrotesque-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/InstrumentSans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="./fonts.css" />
+    <!-- Dieselben Tokens wie die App (hell und dunkel); was die Seite anders braucht, steht in ort.css. -->
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./unternehmen/ort.css" />
+    <link rel="modulepreload" href="./unternehmen/start.js" />
+    <link rel="modulepreload" href="./unternehmen/daten.js" />
+    <link rel="modulepreload" href="./unternehmen/ansicht.js" />
+    <link rel="modulepreload" href="./unternehmen/ring.js" />
+    <script>
+      /* Dasselbe Thema wie die App, vor dem ersten Bild (wie web/e/index.html). */
+      (function () {
+        var wurzel = document.documentElement;
+        var gemerkt = '';
+        try { gemerkt = localStorage.getItem('crew.lade.thema') || ''; } catch (e) { /* kein Speicher */ }
+        var geraet = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        function setzen() {
+          var dunkel = gemerkt === 'dark' || (gemerkt !== 'light' && geraet && geraet.matches);
+          if (dunkel) wurzel.dataset.theme = 'dark'; else delete wurzel.dataset.theme;
+          var farbe = document.querySelector('meta[name="theme-color"]');
+          if (farbe) farbe.setAttribute('content', dunkel ? '#1a1816' : '#f6f3ee');
+        }
+        setzen();
+        if (geraet && geraet.addEventListener && !gemerkt) geraet.addEventListener('change', setzen);
+      })();
+    </script>
+  </head>
+  <body class="ort">
+    <div class="crew-grund ort-grund" aria-hidden="true"></div>
+    <div class="ort-seite" id="ort-seite">
+      <header class="ort-oben">
+        <a class="ort-wortmarke" id="ort-marke" href="./"><span class="brand"><span data-role="wortmarke">crew</span><em>.</em></span><small>für Unternehmen</small></a>
+        <div class="ort-konto" id="ort-konto" data-role="konto"></div>
+      </header>
+      <main id="ort" class="ort-inhalt" data-zustand="laden" aria-busy="true" aria-live="polite">
+        <div class="ort-karte ort-lade" data-role="ort-laden">
+          <svg class="crew-lademarke" width="54" height="54" viewBox="2 2 68 68" aria-hidden="true"><mask id="ort-lade-luecke" maskUnits="userSpaceOnUse" x="0" y="0" width="72" height="72"><rect x="0" y="0" width="72" height="72" fill="#fff"></rect><circle cx="53.5" cy="52" r="11.5" fill="#000"></circle></mask><circle cx="36" cy="36" r="24" fill="none" stroke="currentColor" stroke-width="7" mask="url(#ort-lade-luecke)"></circle><circle cx="53.5" cy="52" r="9.5" fill="var(--green)"></circle></svg>
+          <span class="ort-unsichtbar">Ort lädt</span>
+        </div>
+        <noscript>
+          <style>[data-role="ort-laden"] { display: none; }</style>
+          <section class="ort-karte"><p class="ort-text">Diese Seite zeigt den Ort mit JavaScript. Bitte im Browser öffnen (Safari, Chrome …).</p></section>
+        </noscript>
+      </main>
+      <footer class="ort-unten">
+        Kartendaten und Ortsangaben: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap-Mitwirkende</a> (ODbL).<br />
+        Der Crew Score sagt, besser als wie viel Prozent der Orte derselben Art im Land ein Ort ist. Geld ändert ihn nie.
+      </footer>
+    </div>
+    <!-- Datenweg (Server-Adresse): ./config.js — wie in der App. Die Seite spricht Deutsch (auch der Anmeldeschirm). -->
+    <script src="./config.js"></script>
+    <script>window.CREW_CONFIG = Object.assign({}, window.CREW_CONFIG || {}, { sprache: 'de' });</script>
+    <script type="module" src="./unternehmen/start.js"></script>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!--
+      Einladungsseite (V1-Kern §6): EINE feste Seite für jeden geteilten Link, aufgerufen als
+      …/e/?c=<CODE>. Sie lädt nicht die App, nur ihre eigenen Module (start.js → daten.js, ansicht.js).
+
+      MARKE: Name, Slogan und Adressen in dieser Datei schreibt `node scripts/marke-anwenden.mjs` aus
+      web/core/marke.js. Regel für das Skript (nur diese beiden Attribute, sonst nichts):
+        data-marke-text="Vorlage"    → Textinhalt des Elements   = Vorlage mit eingesetzten Werten
+        data-marke-inhalt="Vorlage"  → Attribut content (meta)    = Vorlage mit eingesetzten Werten
+      Platzhalter: {name} {wortmarke} {slogan} {kurz} (deutsch) {webAdresse}.
+      Mit JavaScript setzt ansicht.js Wortmarke und Slogan zusätzlich zur Laufzeit (data-marke-js).
+    -->
+    <title data-marke-text="Du bist eingeladen · {name}">Du bist eingeladen · Crew</title>
+    <meta name="description" content="Sehen, wer Zeit hat. Und daraus etwas machen." data-marke-inhalt="{slogan}" />
+    <!-- Einladungen gehören nicht in Suchmaschinen: Der Link ist für die, denen er geschickt wurde. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#f6f3ee" />
+
+    <!-- Vorschau-Karte in WhatsApp, Instagram, iMessage, Telegram: für ALLE Links gleich (statische
+         Seite). Was und wann steht im Text über dem Link (core/teil-link.js › teilText). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Crew" data-marke-inhalt="{name}" />
+    <meta property="og:title" content="Du bist eingeladen · Crew" data-marke-inhalt="Du bist eingeladen · {name}" />
+    <meta property="og:description" content="Sehen, wer Zeit hat. Und daraus etwas machen." data-marke-inhalt="{slogan}" />
+    <meta property="og:image" content="https://desteny-dev.github.io/crew-app/e/vorschau.png" data-marke-inhalt="{webAdresse}e/vorschau.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Crew – Du bist eingeladen" data-marke-inhalt="{name} – Du bist eingeladen" />
+    <meta property="og:locale" content="de_DE" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Du bist eingeladen · Crew" data-marke-inhalt="Du bist eingeladen · {name}" />
+    <meta name="twitter:description" content="Sehen, wer Zeit hat. Und daraus etwas machen." data-marke-inhalt="{slogan}" />
+    <meta name="twitter:image" content="https://desteny-dev.github.io/crew-app/e/vorschau.png" data-marke-inhalt="{webAdresse}e/vorschau.png" />
+
+    <link rel="icon" href="../icons/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../icons/favicon-32.png" sizes="32x32" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="../icons/favicon-32-dunkel.png" sizes="32x32" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png" />
+
+    <link rel="preload" href="../fonts/BricolageGrotesque-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="../fonts/InstrumentSans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="../fonts.css" />
+    <!-- Farben, Lademarke, Platzhalter und Hintergrund kommen aus DERSELBEN Datei wie in der App —
+         kein zweiter Satz Tokens, der auseinanderlaufen könnte. Was die Seite anders braucht
+         (sie rollt wie eine Webseite), steht in einladung.css. -->
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="./einladung.css" />
+
+    <!-- Alles, was ansicht.js braucht, lädt gleichzeitig mit der Anfrage an den Server
+         (sonst Stufe um Stufe: ansicht → sprache → Wörterbuch). -->
+    <link rel="modulepreload" href="./daten.js" />
+    <link rel="modulepreload" href="./ansicht.js" />
+    <link rel="modulepreload" href="../core/einladung.js" />
+    <link rel="modulepreload" href="../core/marke.js" />
+    <link rel="modulepreload" href="../core/sprache.js" />
+    <link rel="modulepreload" href="../core/dates.js" />
+    <link rel="modulepreload" href="../ui/activity-icons.js" />
+    <link rel="modulepreload" href="../ui/symbole.js" />
+    <link rel="modulepreload" href="../ui/wortschatz.js" />
+    <link rel="modulepreload" href="../sprachen/en.js" />
+    <link rel="modulepreload" href="../sprachen/fr.js" />
+    <link rel="modulepreload" href="../sprachen/es.js" />
+
+    <script>
+      /* Dasselbe Thema wie die App, vor dem ersten Bild: zuletzt gültiges Thema der App auf diesem
+         Gerät (web/ui/laden.js), sonst das des Geräts. Ohne Speicher (privates Fenster, manche
+         Messenger) gilt das Gerät. */
+      (function () {
+        var wurzel = document.documentElement;
+        var gemerkt = '';
+        try { gemerkt = localStorage.getItem('crew.lade.thema') || ''; } catch (e) { /* kein Speicher */ }
+        var geraet = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        function setzen() {
+          var dunkel = gemerkt === 'dark' || (gemerkt !== 'light' && geraet && geraet.matches);
+          if (dunkel) wurzel.dataset.theme = 'dark'; else delete wurzel.dataset.theme;
+          var farbe = document.querySelector('meta[name="theme-color"]');
+          if (farbe) farbe.setAttribute('content', dunkel ? '#1a1816' : '#f6f3ee');
+        }
+        setzen();
+        if (geraet && geraet.addEventListener && !gemerkt) geraet.addEventListener('change', setzen);
+      })();
+    </script>
+  </head>
+  <body class="ein">
+    <div class="crew-grund ein-grund" aria-hidden="true"></div>
+    <div class="ein-seite">
+      <header class="ein-oben">
+        <a class="brand ein-wortmarke" href="../" data-marke-js="app"><span data-marke-text="{wortmarke}" data-marke-js="wortmarke">crew</span><em>.</em></a>
+      </header>
+
+      <main id="einladung" class="ein-inhalt" data-zustand="laden" aria-busy="true" aria-live="polite">
+        <div class="ein-laden" data-role="einladung-laden">
+          <div class="ein-von"><span class="ein-avatar p5-lade" style="width:52px;height:52px"></span><span class="p5-lade ein-lade-zeile"></span></div>
+          <div class="ein-karte ein-karte-laden">
+            <svg class="crew-lademarke" width="54" height="54" viewBox="2 2 68 68" aria-hidden="true"><mask id="ein-lade-luecke" maskUnits="userSpaceOnUse" x="0" y="0" width="72" height="72"><rect x="0" y="0" width="72" height="72" fill="#fff"></rect><circle cx="53.5" cy="52" r="11.5" fill="#000"></circle></mask><circle cx="36" cy="36" r="24" fill="none" stroke="currentColor" stroke-width="7" mask="url(#ein-lade-luecke)"></circle><circle cx="53.5" cy="52" r="9.5" fill="var(--green)"></circle></svg>
+            <span class="ein-unsichtbar">Einladung lädt</span>
+          </div>
+        </div>
+        <noscript>
+          <style>.ein-laden { display: none; }</style>
+          <section class="ein-lage">
+            <h1 class="ein-satz" data-marke-text="Du bist zu {name} eingeladen">Du bist zu Crew eingeladen</h1>
+            <p class="ein-text">Was geplant ist und wer dich einlädt, zeigt diese Seite mit JavaScript. Öffne den Link in deinem Browser (Safari, Chrome …).</p>
+          </section>
+          <div class="ein-handlung"><a class="ein-knopf ein-knopf-leise" href="../" data-marke-text="{name} öffnen">Crew öffnen</a></div>
+        </noscript>
+      </main>
+
+      <footer class="ein-unten">
+        <p class="ein-slogan" data-marke-text="{slogan}" data-marke-js="slogan">Sehen, wer Zeit hat. Und daraus etwas machen.</p>
+      </footer>
+    </div>
+    <!-- Datenweg (Demo oder Server): ../config.js — wie in der App. Fehlt sie, gilt der Server. -->
+    <script src="../config.js"></script>
+    <script type="module" src="./start.js"></script>
+  </body>
+</html>
